@@ -1,0 +1,22 @@
+# Configuration for systems using systemd, starting from Ubuntu 15.10
+# author: Cristian Consonni (cristian.consonni@unitn.it)
+# modified by: Adam Kurkiewicz (a.kurkiewicz.1@research.gla.ac.uk)
+# See:
+# https://stackoverflow.com/questions/12200217/
+#  can-upstart-expect-respawn-be-used-on-processes-that-fork-more-than-twice
+
+[Unit]
+Description=CMS Logger
+After=network.target
+
+[Service]
+Environment="PATH=/usr/local/bin"
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=7
+StartLimitBurst=3
+ExecStart=/bin/bash /usr/local/bin/cmsResourceReadContest.sh
+
+[Install]
+WantedBy=multi-user.target
+
